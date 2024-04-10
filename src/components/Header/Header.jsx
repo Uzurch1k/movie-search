@@ -6,7 +6,7 @@ const Header = () => {
     <header className={css.header}>
       <div className="container">
         <div className={css.body}>
-          <h1 className={css.title}>__start-vite-react</h1>
+          <h1 className={css.title}>Movie search</h1>
           <a
             className={css.link}
             href="https://github.com/Uzurch1k"
