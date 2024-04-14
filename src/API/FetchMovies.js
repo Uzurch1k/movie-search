@@ -16,3 +16,29 @@ export const fetchMoviesTrending = async () => {
   const response = await axios.get(url, options);
   return response;
 };
+
+export const fetchMoviesSearch = async query => {
+  const url =
+    BASE_URL +
+    `3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
+  const response = await axios.get(url, options);
+  return response;
+};
+
+export const fetchMoviesDetails = async movieId => {
+  const url = BASE_URL + `3/movie/${movieId}`;
+  const response = await axios.get(url, options);
+  return response;
+};
+
+export const fetchMoviesCredits = async movieId => {
+  const url = BASE_URL + `3/movie/${movieId}/credits`;
+  const response = await axios.get(url, options);
+  return response;
+};
+
+export const fetchMoviesReviews = async movieId => {
+  const url = BASE_URL + `3/movie/${movieId}/reviews`;
+  const response = await axios.get(url, options);
+  return response;
+};

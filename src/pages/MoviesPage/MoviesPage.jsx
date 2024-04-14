@@ -9,7 +9,7 @@ const MoviesPage = () => {
   return (
     <section className={css.section}>
       <FormSubmit handleSubmit={handleSubmit} />
-      <p>MoviesPage</p>
+
       <MovieList />
     </section>
   );
