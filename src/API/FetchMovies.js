@@ -20,7 +20,7 @@ export const fetchMoviesTrending = async () => {
 export const fetchMoviesSearch = async query => {
   const url =
     BASE_URL +
-    `3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
+    `3/search/movie?query=${query}`;
   const response = await axios.get(url, options);
   return response;
 };

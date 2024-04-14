@@ -1,6 +1,13 @@
 .item {
+	transition: 150ms box-shadow;
+	box-shadow:
+		0 4px 12px rgba(0, 0, 0, 0.2),
+		0 16px 20px rgba(0, 0, 0, 0.2);
+	&:hover {
+		box-shadow: 0 4px 20px rgba(97, 111, 114, 0.35);
+	}
 }
-.img-link {
+.wrapp {
 	display: block;
 	position: relative;
 	padding-top: 140%;
@@ -18,4 +25,16 @@
 	}
 }
 .link {
+}
+.info {
+	padding: 10px;
+	background-color: #43484e;
+}
+.title {
+	font-size: 20px;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

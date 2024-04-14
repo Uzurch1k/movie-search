@@ -9,7 +9,7 @@ body {
 
 .container {
 	max-width: 360rem;
-	padding: 0 10px;
+	padding: 0 15px;
 	margin: 0 auto;
 }
 
@@ -18,7 +18,6 @@ body {
 @media screen and (min-width: 768px) {
 	.container {
 		max-width: 768px;
-		padding: 0 15px;
 	}
 }
 

@@ -1,3 +1,4 @@
+import { GoSearch } from 'react-icons/go';
 import css from './FormSubmit.module.scss';
 
 const FormSubmit = ({ setSearchParams }) => {
@@ -16,19 +17,21 @@ const FormSubmit = ({ setSearchParams }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={css.form}>
-      <input
-        className={css.input}
-        type="text"
-        name="search"
-        autoComplete="off"
-        autoFocus
-        placeholder="Search movies"
-      />
-      <button className={css.btn} type="submit">
-        btn
-      </button>
-    </form>
+    <div className={css.body}>
+      <form onSubmit={handleSubmit} className={css.form}>
+        <input
+          className={css.input}
+          type="text"
+          name="search"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
+        />
+        <button className={css.btn} type="submit">
+          <GoSearch />
+        </button>
+      </form>
+    </div>
   );
 };
 

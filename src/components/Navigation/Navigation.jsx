@@ -1,6 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import github from './img/git-hub.jpg';
+
+import clsx from 'clsx';
 import css from './Navigation.module.scss';
+
+const buildLinkClass = ({ isActive }) => {
+  return clsx(css.nav__link, isActive && css.active);
+};
 
 const Navigation = () => {
   return (
@@ -10,8 +16,12 @@ const Navigation = () => {
           <h1 className={css.title}>Movie search</h1>
 
           <nav className={css.nav}>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/movies">Movies</NavLink>
+            <NavLink to="/" className={buildLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/movies" className={buildLinkClass}>
+              Movies
+            </NavLink>
           </nav>
 
           <a

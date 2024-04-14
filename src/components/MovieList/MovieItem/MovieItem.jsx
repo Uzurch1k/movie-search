@@ -11,18 +11,20 @@ const MovieItem = ({ item }) => {
 
   return (
     <li className={css.item}>
-      <Link to={`/movies/${id}`} className={css['img-link']} state={location}>
-        <img
-          src={
-            poster_path
-              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-              : defaultImg
-          }
-          alt={title}
-        />
-      </Link>
       <Link to={`/movies/${id}`} className={css.link} state={location}>
-        {title}
+        <div className={css.wrapp}>
+          <img
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+                : defaultImg
+            }
+            alt={title}
+          />
+        </div>
+        <div className={css.info}>
+          <h2 className={css.title}>{title}</h2>
+        </div>
       </Link>
     </li>
   );
