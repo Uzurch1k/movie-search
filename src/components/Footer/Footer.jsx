@@ -8,7 +8,7 @@ const Footer = () => {
           <img src="/react.svg" alt="react" />
           <a
             className={css.link}
-            href="https://github.com/Uzurch1k/start-vite-react"
+            href="https://github.com/Uzurch1k/goit-react-hw-05"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -6,18 +6,22 @@ const defaultImg =
 const CastItem = ({ item }) => {
   const { profile_path, name, character } = item;
   return (
-    <li>
-      <img
-        src={
-          profile_path
-            ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-            : defaultImg
-        }
-        alt={name}
-      />
+    <li className={css.item}>
+      <div className={css.wrapp}>
+        <img
+          src={
+            profile_path
+              ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+              : defaultImg
+          }
+          alt={name}
+        />
+      </div>
 
-      <p>{name}</p>
-      <p>Character: {character}</p>
+      <div className={css.info}>
+        <p className={css.text}>{name}</p>
+        <p className={css.text}>Character: {character}</p>
+      </div>
     </li>
   );
 };

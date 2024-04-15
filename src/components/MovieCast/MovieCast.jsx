@@ -27,7 +27,7 @@ const MovieCast = () => {
 
   return (
     <div className={css.cast}>
-      <ul>
+      <ul className={css.cast__list}>
         {cast?.length > 0 &&
           cast.map(item => <CastItem key={item.id} item={item} />)}
       </ul>

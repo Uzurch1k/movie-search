@@ -1,8 +1,20 @@
 import { useState, useEffect, Suspense } from 'react';
-import { useLocation, useParams, Link, Outlet } from 'react-router-dom';
+import {
+  useLocation,
+  useParams,
+  NavLink,
+  Link,
+  Outlet,
+} from 'react-router-dom';
 import { fetchMoviesDetails } from '../../API/FetchMovies';
 
+import { IoChevronBackSharp } from 'react-icons/io5';
+import clsx from 'clsx';
 import css from './MovieDetailsPage.module.scss';
+
+const buildLinkClass = ({ isActive }) => {
+  return clsx(css.nav__link, isActive && css.active);
+};
 
 const MovieDetailsPage = () => {
   const { id } = useParams();
@@ -34,11 +46,13 @@ const MovieDetailsPage = () => {
 
   return (
     <section className={css.details}>
-      <Link to={backLink} className={css.back__link}>
-        Back
-      </Link>
+      <div className={css.wrapp__back}>
+        <Link to={backLink} className={css.back__link}>
+          <IoChevronBackSharp /> Go back
+        </Link>
+      </div>
 
-      <div className={css.content}>
+      <div className={css.body}>
         {poster_path && (
           <div className={css.wrapp__img}>
             <img
@@ -48,49 +62,55 @@ const MovieDetailsPage = () => {
           </div>
         )}
 
-        {title && (
-          <h2 className={css.title}>
-            {title}{' '}
-            {release_date && <span>({release_date.split('-')[0]})</span>}
-          </h2>
-        )}
-
-        <ul className={css.info__list}>
-          {vote_average > 0 && (
-            <li className={css.text}>Rating: {vote_average}</li>
+        <div className={css.wrapp__content}>
+          {title && (
+            <h2 className={css.title}>
+              {title}{' '}
+              {release_date && <span>({release_date.split('-')[0]})</span>}
+            </h2>
           )}
-          {budget > 0 && (
-            <li className={css.text}>Budget: ${budget.toLocaleString()}</li>
+
+          <ul className={css.info__list}>
+            {vote_average > 0 && (
+              <li className={css.text}>Rating: {vote_average}</li>
+            )}
+            {budget > 0 && (
+              <li className={css.text}>Budget: ${budget.toLocaleString()}</li>
+            )}
+          </ul>
+
+          {overview && (
+            <div className={css.overview}>
+              <h3 className={css.subtitle}>Overview:</h3>
+              <p className={css.text}>{overview}</p>
+            </div>
           )}
-        </ul>
 
-        {overview && (
-          <>
-            <h3 className={css.subtitle}>Overview</h3>
-            <p className={css.text}>{overview}</p>
-          </>
-        )}
-
-        {genres?.length > 0 && (
-          <>
-            <h3 className={css.subtitle}>Genres</h3>
-            <ul className={css.genres__list}>
-              {genres.map(item => (
-                <li key={item.id} className={css.text}>
-                  {item.name}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+          {genres?.length > 0 && (
+            <div className={css.genres}>
+              <h3 className={css.subtitle}>Genres:</h3>
+              <ul className={css.genres__list}>
+                {genres.map(item => (
+                  <li key={item.id} className={css.text}>
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
 
-      <ul>
+      <ul className={css.more__list}>
         <li>
-          <Link to="cast">cast</Link>
+          <NavLink to="cast" className={buildLinkClass}>
+            Cast
+          </NavLink>
         </li>
         <li>
-          <Link to="reviews">reviews</Link>
+          <NavLink to="reviews" className={buildLinkClass}>
+            Reviews
+          </NavLink>
         </li>
       </ul>
 
