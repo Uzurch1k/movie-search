@@ -38,7 +38,7 @@ const MovieDetailsPage = () => {
       }
     }
     fetchResponse();
-  }, []);
+  }, [id]);
 
   const {
     title,

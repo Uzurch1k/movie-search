@@ -22,7 +22,7 @@ const HomePage = () => {
 
   return (
     <section className={css.home}>
-      <MovieList movieTrend={movieTrend} />
+      <MovieList movieResults={movieTrend} />
     </section>
   );
 };

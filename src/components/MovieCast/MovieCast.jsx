@@ -19,9 +19,9 @@ const MovieCast = () => {
         setNotFound(false);
         const res = await fetchMoviesCredits(id);
         setMovieCast(res.data);
+        if (!movieCast.cast?.length > 0) setNotFound(true);
       } catch (error) {
         console.log(error);
-      } finally {
         setNotFound(true);
       }
     }
@@ -32,14 +32,17 @@ const MovieCast = () => {
 
   return (
     <div className={css.cast}>
-      {cast?.length > 0 ? (
+      {cast?.length > 0 && (
         <ul className={css.cast__list}>
           {cast.map(item => (
             <CastItem key={item.id} item={item} />
           ))}
         </ul>
-      ) : (
-        <div className={css.found}>{notFound && <TbFaceIdError />}</div>
+      )}
+      {notFound && (
+        <div className={css.found}>
+          <TbFaceIdError />
+        </div>
       )}
     </div>
   );

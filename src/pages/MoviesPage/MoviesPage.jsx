@@ -27,7 +27,7 @@ const MoviesPage = () => {
   return (
     <section className={css.section}>
       <FormSubmit setSearchParams={setSearchParams} />
-      <MovieList movieSearch={movieSearch} />
+      <MovieList movieResults={movieSearch} />
     </section>
   );
 };

@@ -19,9 +19,9 @@ const MovieReviews = () => {
         setNotFound(false);
         const res = await fetchMoviesReviews(id);
         setMovieReviews(res.data);
+        if (!movieReviews.results?.length > 0) setNotFound(true);
       } catch (error) {
         console.log(error);
-      } finally {
         setNotFound(true);
       }
     }
@@ -32,14 +32,17 @@ const MovieReviews = () => {
 
   return (
     <div className={css.reviews}>
-      {results?.length > 0 ? (
+      {results?.length > 0 && (
         <ul className={css.reviews__list}>
           {results.map(item => (
             <ReviewsItem key={item.id} item={item} />
           ))}
         </ul>
-      ) : (
-        <div className={css.found}>{notFound && <TbFaceIdError />}</div>
+      )}
+      {notFound && (
+        <div className={css.found}>
+          <TbFaceIdError />
+        </div>
       )}
     </div>
   );
