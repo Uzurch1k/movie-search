@@ -4,20 +4,25 @@ import { fetchMoviesReviews } from '../../API/FetchMovies';
 
 import ReviewsItem from './ReviewsItem/ReviewsItem';
 
+import { TbFaceIdError } from 'react-icons/tb';
 import css from './MovieReviews.module.scss';
 
 const MovieReviews = () => {
   const { id } = useParams();
   const [movieReviews, setMovieReviews] = useState([]);
+  const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
     if (!id) return;
     async function fetchResponse() {
       try {
+        setNotFound(false);
         const res = await fetchMoviesReviews(id);
         setMovieReviews(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setNotFound(true);
       }
     }
     fetchResponse();
@@ -27,13 +32,15 @@ const MovieReviews = () => {
 
   return (
     <div className={css.reviews}>
-      <ul>
-        {results?.length > 0 ? (
-          results.map(item => <ReviewsItem key={item.id} item={item} />)
-        ) : (
-          <p>Not found</p>
-        )}
-      </ul>
+      {results?.length > 0 ? (
+        <ul className={css.reviews__list}>
+          {results.map(item => (
+            <ReviewsItem key={item.id} item={item} />
+          ))}
+        </ul>
+      ) : (
+        <div className={css.found}>{notFound && <TbFaceIdError />}</div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import {
   useLocation,
   useParams,
@@ -7,6 +7,8 @@ import {
   Outlet,
 } from 'react-router-dom';
 import { fetchMoviesDetails } from '../../API/FetchMovies';
+
+import { LoaderDetails } from '../../components/Loader/Loader';
 
 import { IoChevronBackSharp } from 'react-icons/io5';
 import clsx from 'clsx';
@@ -20,15 +22,19 @@ const MovieDetailsPage = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState([]);
   const location = useLocation();
-  const backLink = location.state ?? '/movies';
+  const backLink = useRef(location.state ?? '/movies');
+  const [loaderContent, setLoaderContent] = useState(false);
 
   useEffect(() => {
     async function fetchResponse() {
       try {
+        setLoaderContent(false);
         const res = await fetchMoviesDetails(id);
         setMovieDetails(res.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoaderContent(true);
       }
     }
     fetchResponse();
@@ -46,77 +52,83 @@ const MovieDetailsPage = () => {
 
   return (
     <section className={css.details}>
-      <div className={css.wrapp__back}>
-        <Link to={backLink} className={css.back__link}>
-          <IoChevronBackSharp /> Go back
-        </Link>
-      </div>
-
-      <div className={css.body}>
-        {poster_path && (
-          <div className={css.wrapp__img}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-              alt={title}
-            />
+      {loaderContent && (
+        <>
+          <div className={css.wrapp__back}>
+            <Link to={backLink.current} className={css.back__link}>
+              <IoChevronBackSharp /> Go back
+            </Link>
           </div>
-        )}
 
-        <div className={css.wrapp__content}>
-          {title && (
-            <h2 className={css.title}>
-              {title}{' '}
-              {release_date && <span>({release_date.split('-')[0]})</span>}
-            </h2>
-          )}
+          <div className={css.body}>
+            {poster_path && (
+              <div className={css.wrapp__img}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                  alt={title}
+                />
+              </div>
+            )}
 
-          <ul className={css.info__list}>
-            {vote_average > 0 && (
-              <li className={css.text}>Rating: {vote_average}</li>
-            )}
-            {budget > 0 && (
-              <li className={css.text}>Budget: ${budget.toLocaleString()}</li>
-            )}
+            <div className={css.wrapp__content}>
+              {title && (
+                <h2 className={css.title}>
+                  {title}{' '}
+                  {release_date && <span>({release_date.split('-')[0]})</span>}
+                </h2>
+              )}
+
+              <ul className={css.info__list}>
+                {vote_average > 0 && (
+                  <li className={css.text}>Rating: {vote_average}</li>
+                )}
+                {budget > 0 && (
+                  <li className={css.text}>
+                    Budget: ${budget.toLocaleString()}
+                  </li>
+                )}
+              </ul>
+
+              {overview && (
+                <div className={css.overview}>
+                  <h3 className={css.subtitle}>Overview:</h3>
+                  <p className={css.text}>{overview}</p>
+                </div>
+              )}
+
+              {genres?.length > 0 && (
+                <div className={css.genres}>
+                  <h3 className={css.subtitle}>Genres:</h3>
+                  <ul className={css.genres__list}>
+                    {genres.map(item => (
+                      <li key={item.id} className={css.text}>
+                        {item.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <ul className={css.more__list}>
+            <li>
+              <NavLink to="cast" className={buildLinkClass}>
+                Cast
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="reviews" className={buildLinkClass}>
+                Reviews
+              </NavLink>
+            </li>
           </ul>
 
-          {overview && (
-            <div className={css.overview}>
-              <h3 className={css.subtitle}>Overview:</h3>
-              <p className={css.text}>{overview}</p>
-            </div>
-          )}
-
-          {genres?.length > 0 && (
-            <div className={css.genres}>
-              <h3 className={css.subtitle}>Genres:</h3>
-              <ul className={css.genres__list}>
-                {genres.map(item => (
-                  <li key={item.id} className={css.text}>
-                    {item.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <ul className={css.more__list}>
-        <li>
-          <NavLink to="cast" className={buildLinkClass}>
-            Cast
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="reviews" className={buildLinkClass}>
-            Reviews
-          </NavLink>
-        </li>
-      </ul>
-
-      <Suspense fallback={<div>Loading subpage...</div>}>
-        <Outlet />
-      </Suspense>
+          <Suspense fallback={<LoaderDetails />}>
+            <Outlet />
+          </Suspense>
+        </>
+      )}
     </section>
   );
 };

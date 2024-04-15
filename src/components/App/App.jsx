@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import Background from '../Background/Background';
+import ScrollUp from '../ScrollUp/ScrollUp';
+import { Loader } from '../Loader/Loader';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 
 const MovieCast = lazy(() => import('../MovieCast/MovieCast'));
@@ -24,7 +26,7 @@ function App() {
         <Navigation />
         <main className="main">
           <div className="container">
-            <Suspense fallback={<div>Loading page...</div>}>
+            <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/movies" element={<MoviesPage />} />
@@ -36,6 +38,7 @@ function App() {
               </Routes>
             </Suspense>
           </div>
+          <ScrollUp />
         </main>
         <Footer />
       </div>

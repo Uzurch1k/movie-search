@@ -1,8 +1,18 @@
+.cast {
+}
 .cast__list {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 15px;
 	padding: 0 0 10px 0;
+}
+.found {
+	padding: 30px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 200px;
+	color: #5f828d;
 }
 
 /* --------- Adaptive tablet (768px) --------- */
