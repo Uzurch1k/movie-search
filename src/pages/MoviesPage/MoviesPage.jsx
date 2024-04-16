@@ -25,8 +25,8 @@ const MoviesPage = () => {
         setNotFound(false);
         const res = await fetchMoviesSearch(moviesName);
         const dataResults = res.data.results;
+        if (moviesName && !(dataResults.length > 0)) return setNotFound(true);
         setMovieSearch(dataResults);
-        if (moviesName && !dataResults?.length > 0) setNotFound(true);
       } catch (error) {
         console.log(error);
         setNotFound(true);

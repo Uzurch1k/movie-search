@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMoviesReviews } from '../../API/FetchMovies';
 
 import ReviewsItem from './ReviewsItem/ReviewsItem';
+import { LoaderDetails } from '../Loader/Loader';
 
 import { TbFaceIdError } from 'react-icons/tb';
 import css from './MovieReviews.module.scss';
@@ -11,18 +12,23 @@ const MovieReviews = () => {
   const { id } = useParams();
   const [movieReviews, setMovieReviews] = useState([]);
   const [notFound, setNotFound] = useState(false);
+  const [loaderDetails, setLoaderDetails] = useState(false);
 
   useEffect(() => {
     if (!id) return;
     async function fetchResponse() {
       try {
+        setLoaderDetails(true);
         setNotFound(false);
         const res = await fetchMoviesReviews(id);
-        setMovieReviews(res.data);
-        if (!res.data.results?.length > 0) setNotFound(true);
+        const dataResults = res.data;
+        if (!(dataResults.results.length > 0)) return setNotFound(true);
+        setMovieReviews(dataResults);
       } catch (error) {
         console.log(error);
         setNotFound(true);
+      } finally {
+        setLoaderDetails(false);
       }
     }
     fetchResponse();
@@ -32,6 +38,7 @@ const MovieReviews = () => {
 
   return (
     <div className={css.reviews}>
+      {loaderDetails && <LoaderDetails />}
       {results?.length > 0 && (
         <ul className={css.reviews__list}>
           {results.map(item => (
