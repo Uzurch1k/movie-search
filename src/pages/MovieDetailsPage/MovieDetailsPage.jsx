@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { fetchMoviesDetails } from '../../API/FetchMovies';
 
-import { LoaderDetails } from '../../components/Loader/Loader';
+import { Loader, LoaderDetails } from '../../components/Loader/Loader';
 
 import { IoChevronBackSharp } from 'react-icons/io5';
 import clsx from 'clsx';
@@ -24,16 +24,19 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const backLink = useRef(location.state ?? '/movies');
   const [loaderContent, setLoaderContent] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     async function fetchResponse() {
       try {
+        setLoader(true);
         setLoaderContent(false);
         const res = await fetchMoviesDetails(id);
         setMovieDetails(res.data);
       } catch (error) {
         console.log(error);
       } finally {
+        setLoader(false);
         setLoaderContent(true);
       }
     }
@@ -52,6 +55,7 @@ const MovieDetailsPage = () => {
 
   return (
     <section className={css.details}>
+      {loader && <Loader />}
       {loaderContent && (
         <>
           <div className={css.wrapp__back}>
