@@ -19,7 +19,7 @@ const MovieReviews = () => {
         setNotFound(false);
         const res = await fetchMoviesReviews(id);
         setMovieReviews(res.data);
-        if (!movieReviews.results?.length > 0) setNotFound(true);
+        if (!res.data.results?.length > 0) setNotFound(true);
       } catch (error) {
         console.log(error);
         setNotFound(true);

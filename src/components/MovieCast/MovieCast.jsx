@@ -19,7 +19,7 @@ const MovieCast = () => {
         setNotFound(false);
         const res = await fetchMoviesCredits(id);
         setMovieCast(res.data);
-        if (!movieCast.cast?.length > 0) setNotFound(true);
+        if (!res.data.cast?.length > 0) setNotFound(true);
       } catch (error) {
         console.log(error);
         setNotFound(true);
