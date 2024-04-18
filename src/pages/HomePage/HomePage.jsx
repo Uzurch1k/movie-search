@@ -22,6 +22,7 @@ const HomePage = () => {
 
   return (
     <section className={css.home}>
+      <h2 className={css.title}>Trending today</h2>
       <MovieList movieResults={movieTrend} />
     </section>
   );

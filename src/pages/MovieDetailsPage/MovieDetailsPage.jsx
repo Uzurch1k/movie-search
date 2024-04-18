@@ -51,7 +51,11 @@ const MovieDetailsPage = () => {
     vote_average,
     budget,
     genres,
+    backdrop_path,
+    production_companies,
   } = movieDetails;
+
+  console.log(production_companies);
 
   return (
     <section className={css.details}>
@@ -65,6 +69,16 @@ const MovieDetailsPage = () => {
           </div>
 
           <div className={css.body}>
+            {backdrop_path && (
+              <>
+                <img
+                  className={css.bg__img}
+                  src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+                  alt={title}
+                />
+                <div className={css.blur}></div>
+              </>
+            )}
             {poster_path && (
               <div className={css.wrapp__img}>
                 <img
@@ -82,16 +96,18 @@ const MovieDetailsPage = () => {
                 </h2>
               )}
 
-              <ul className={css.info__list}>
-                {vote_average > 0 && (
-                  <li className={css.text}>Rating: {vote_average}</li>
-                )}
-                {budget > 0 && (
-                  <li className={css.text}>
-                    Budget: ${budget.toLocaleString()}
-                  </li>
-                )}
-              </ul>
+              {(vote_average > 0 || budget > 0) && (
+                <ul className={css.info__list}>
+                  {vote_average > 0 && (
+                    <li className={css.text}>Rating: {vote_average}</li>
+                  )}
+                  {budget > 0 && (
+                    <li className={css.text}>
+                      Budget: ${budget.toLocaleString()}
+                    </li>
+                  )}
+                </ul>
+              )}
 
               {overview && (
                 <div className={css.overview}>
@@ -111,6 +127,19 @@ const MovieDetailsPage = () => {
                     ))}
                   </ul>
                 </div>
+              )}
+
+              {production_companies && (
+                <ul className={css.companies}>
+                  {production_companies.map(({ id, logo_path, name }) => (
+                    <li key={id}>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500/${logo_path}`}
+                        alt={name}
+                      />
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
           </div>

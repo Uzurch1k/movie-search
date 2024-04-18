@@ -1,0 +1,45 @@
+.home {
+	padding: 10px 30px;
+}
+.title {
+	margin-bottom: 20px;
+	font-size: 18px;
+}
+
+/* --------- Adaptive tablet (768px) --------- */
+
+@media screen and (min-width: 768px) {
+	.home {
+		padding: 15px 50px;
+	}
+	.title {
+		font-size: 20px;
+	}
+}
+
+/* --------- Adaptive desktop (1152px) --------- */
+
+@media screen and (min-width: 1152px) {
+	.home {
+		padding: 20px 70px;
+	}
+	.title {
+		font-size: 26px;
+	}
+}
+
+/* --------- Adaptive desktop (1440px) --------- */
+
+@media screen and (min-width: 1440px) {
+	.home {
+		padding: 30px 100px;
+	}
+}
+
+/* --------- Adaptive desktop (1920px) --------- */
+
+@media screen and (min-width: 1920px) {
+	.home {
+		gap: 25px;
+	}
+}

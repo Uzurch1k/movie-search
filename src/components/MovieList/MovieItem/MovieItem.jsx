@@ -1,17 +1,31 @@
 import { Link, useLocation } from 'react-router-dom';
 
+import { FaCalendarAlt } from 'react-icons/fa';
+import { FcLike } from 'react-icons/fc';
 import css from './MovieItem.module.scss';
 
 const defaultImg =
   'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg';
 
 const MovieItem = ({ item }) => {
-  const { title, id, poster_path } = item;
+  const { title, id, poster_path, vote_average, release_date, overview } = item;
   const location = useLocation();
+
+  console.log(item);
 
   return (
     <li className={css.item}>
       <Link to={`/movies/${id}`} className={css.link} state={location}>
+        <div className={css.details}>
+          <p>
+            <FcLike />
+            {vote_average}
+          </p>
+          <p>
+            <FaCalendarAlt />
+            {release_date}
+          </p>
+        </div>
         <div className={css.wrapp}>
           <img
             src={
@@ -21,6 +35,9 @@ const MovieItem = ({ item }) => {
             }
             alt={title}
           />
+          <div className={css.description}>
+            <p>{overview}</p>
+          </div>
         </div>
         <div className={css.info}>
           <h2 className={css.title}>{title}</h2>
