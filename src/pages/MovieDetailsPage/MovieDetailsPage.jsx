@@ -130,16 +130,19 @@ const MovieDetailsPage = () => {
               )}
 
               {production_companies && (
-                <ul className={css.companies}>
-                  {production_companies.map(({ id, logo_path, name }) => (
-                    <li key={id}>
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500/${logo_path}`}
-                        alt={name}
-                      />
-                    </li>
-                  ))}
-                </ul>
+                <>
+                  <h3 className={css.subtitle}>Production companies:</h3>
+                  <ul className={css.companies}>
+                    {production_companies.map(({ id, logo_path, name }) => (
+                      <li key={id}>
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500/${logo_path}`}
+                          alt={name}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
             </div>
           </div>
