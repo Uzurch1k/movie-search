@@ -55,8 +55,6 @@ const MovieDetailsPage = () => {
     production_companies,
   } = movieDetails;
 
-  console.log(production_companies);
-
   return (
     <section className={css.details}>
       {loader && <Loader />}

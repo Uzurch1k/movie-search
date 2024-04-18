@@ -11,8 +11,6 @@ const MovieItem = ({ item }) => {
   const { title, id, poster_path, vote_average, release_date, overview } = item;
   const location = useLocation();
 
-  console.log(item);
-
   return (
     <li className={css.item}>
       <Link to={`/movies/${id}`} className={css.link} state={location}>
