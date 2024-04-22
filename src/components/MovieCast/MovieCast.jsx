@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMoviesCredits } from '../../API/FetchMovies';
 
@@ -14,6 +14,8 @@ const MovieCast = () => {
   const [notFound, setNotFound] = useState(false);
   const [loaderDetails, setLoaderDetails] = useState(false);
 
+  const castRef = useRef(null);
+
   useEffect(() => {
     if (!id) return;
     async function fetchResponse() {
@@ -22,6 +24,16 @@ const MovieCast = () => {
         setNotFound(false);
         const res = await fetchMoviesCredits(id);
         const dataResults = res.data;
+
+        setTimeout(() => {
+          const height =
+            castRef.current.firstElementChild.getBoundingClientRect().top;
+          window.scrollBy({
+            top: height - 100,
+            behavior: 'smooth',
+          });
+        }, 100);
+
         if (!(dataResults.cast.length > 0)) return setNotFound(true);
         setMovieCast(dataResults);
       } catch (error) {
@@ -37,7 +49,7 @@ const MovieCast = () => {
   const { cast } = movieCast;
 
   return (
-    <div className={css.cast}>
+    <div className={css.cast} ref={castRef}>
       {loaderDetails && <LoaderDetails />}
       {cast?.length > 0 && (
         <ul className={css.cast__list}>

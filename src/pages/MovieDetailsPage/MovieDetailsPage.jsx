@@ -133,10 +133,15 @@ const MovieDetailsPage = () => {
                   <ul className={css.companies}>
                     {production_companies.map(({ id, logo_path, name }) => (
                       <li key={id}>
-                        <img
-                          src={`https://image.tmdb.org/t/p/w500/${logo_path}`}
-                          alt={name}
-                        />
+                        {logo_path ? (
+                          <img
+                            src={`https://image.tmdb.org/t/p/w500/${logo_path}`}
+                            alt={name}
+                            title={name}
+                          />
+                        ) : (
+                          <p>{name}</p>
+                        )}
                       </li>
                     ))}
                   </ul>
