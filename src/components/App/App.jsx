@@ -1,12 +1,14 @@
 import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import Wrapper from '../Layout/Wrapper/Wrapper';
+import Main from '../Layout/Main/Main';
+import Section from '../Layout/Section/Section';
+
 import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
-import Background from '../Background/Background';
-import ScrollUp from '../ScrollUp/ScrollUp';
-import { Loader } from '../Loader/Loader';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
+import { Loader } from '../Loader/Loader';
 
 const MovieCast = lazy(() => import('../MovieCast/MovieCast'));
 const MovieReviews = lazy(() => import('../MovieReviews/MovieReviews'));
@@ -22,10 +24,10 @@ import './App.scss';
 function App() {
   return (
     <>
-      <div className="wrapper">
+      <Wrapper>
         <Navigation />
-        <main className="main">
-          <div className="container">
+        <Main>
+          <Section>
             <Suspense fallback={<Loader />}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
@@ -37,12 +39,10 @@ function App() {
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Suspense>
-          </div>
-          <ScrollUp />
-        </main>
+          </Section>
+        </Main>
         <Footer />
-      </div>
-      <Background />
+      </Wrapper>
     </>
   );
 }

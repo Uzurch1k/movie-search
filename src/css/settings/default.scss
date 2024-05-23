@@ -95,19 +95,6 @@ img {
 	height: auto;
 }
 
-.wrapper {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	position: relative;
-	z-index: 10;
-}
-
-.main {
-	flex-grow: 1;
-}
-
 .cover {
 	position: absolute;
 	left: 50%;

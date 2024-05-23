@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { IoIosArrowUp } from 'react-icons/io';
+
 import css from './ScrollUp.module.scss';
 
 const ScrollUp = () => {

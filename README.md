@@ -1,1 +1,1 @@
-# goit-react-hw-05
+# Movie search
